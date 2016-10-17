@@ -29,6 +29,11 @@ guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--drb' do
 	(m[1][/_pages/] ? "spec/requests/#{m[1]}_spec.rb" :
 					  "spec/requests/#{m[1].singularize}_pages_spec.rb")]
   end
+  watch(%r{^app/views/(.+)/}) do |m|
+  	(m[1][/_pages/] ? "spec/requests/#{m[1]}_spec.rb" :
+					   "spec/requests/#{m[1].singularize}_pages_spec.rb")
+  end
+
   watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
   watch('config/routes.rb')                           { "spec/routing" }
   watch('app/controllers/application_controller.rb')  { "spec/controllers" }
