@@ -12,6 +12,6 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :mobile_phone,  allow_blank: true
   
   validates_presence_of :password, message:"密码不能为空" 
-  validates_length_of :password, minimum: 6, message: "密码不能少于6位" 
-  validates_presence_of :password_confirmation, message:"两次密码不一致", allow_blank: true
+  validates_length_of :password, minimum: 6, message: "密码不能少于6位", allow_blank: true 
+  validates_presence_of :password_confirmation, message:"两次密码不一致", allow_blank: true, allow_nil: true
 end
