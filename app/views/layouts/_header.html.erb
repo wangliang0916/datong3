@@ -4,9 +4,22 @@
  		<%= link_to "大童CRM", '#', id: "logo" %>
 		<nav>
 			<ul class="nav pull-right">
-				<li><%= link_to "帮助", '#' %></li>
+                <% if signed_in? %>
+                    <li id="fat-menu" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">账户<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to "资料", current_user %></li>
+                            <li><%= link_to "设置", '#' %></li>
+                            <li class="divider"></li>
+                            <li><%= link_to "注销", signout_path, method: "delete" %></li>
+                        </ul>
+                    </li>
+                <% else %>
+                    <li><%= link_to "登录", signin_path %></li>
+                <% end %>
+				<li><%= link_to "帮助", help_path %></li>
 			</ul>
 		</nav>
- 	</div> 	 	
+ 	</div>
   </div>
  </header>

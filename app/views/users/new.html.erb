@@ -3,19 +3,29 @@
 <div class="row">
     <div class="span6 offset3">
         <%= form_for(@user) do |f| %>
+            <p>
             <%= f.label :name, "姓名" %>
             <%= f.text_field :name %>
+            </p>
             
+            <p>
             <%= f.label :mobile_phone, "手机号码" %>
             <%= f.text_field :mobile_phone %>
+            </p>
 
+            <p>
             <%= f.label :password, "密码" %>
             <%= f.password_field :password %>
+            </p>
 
+            <p>
             <%= f.label :password_confirmation, "密码确认" %>
             <%= f.password_field :password_confirmation %>
+            </p>
             
+            <p>
             <%= f.submit "创建用户", class: "btn btn-large btn-primary" %>
+            </p>
         <% end %>
     </div>
 </div>

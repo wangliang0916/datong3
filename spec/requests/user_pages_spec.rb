@@ -43,6 +43,15 @@ describe "UserPages" do
         it "should create a user" do
           expect { click_button submit }.to change(User, :count)
         end
+
+        describe "after saving the user" do
+          before { click_button submit }
+          let(:user) { User.first }
+
+          it { should have_selector('title', text: full_title(user.name)) }
+          it { should have_selector('div.alert.alert-success', text: "欢迎") }
+          it { should have_link("注销") }
+        end
       end
     end
 end

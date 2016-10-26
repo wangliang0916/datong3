@@ -5,7 +5,7 @@ describe "StaticPages" do
     subject { page }
 
     describe "help page" do
-      before { visit '/static_pages/help'}
+      before { visit help_path }
     
       it { should have_selector('title', text: full_title("帮助")) }
     

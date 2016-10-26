@@ -14,4 +14,10 @@ class User < ActiveRecord::Base
   validates_presence_of :password, message:"密码不能为空" 
   validates_length_of :password, minimum: 6, message: "密码不能少于6位", allow_blank: true 
   validates_presence_of :password_confirmation, message:"两次密码不一致", allow_blank: true, allow_nil: true
+
+  before_save :create_remember_token
+private
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
+  end
 end

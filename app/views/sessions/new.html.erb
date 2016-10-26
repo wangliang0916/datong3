@@ -1,0 +1,21 @@
+<% provide(:title, "登录") %>
+<h1>登录</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(:session, url: sessions_path) do |f| %>
+      <p>
+        <%= f.label :mobile_phone, "手机号码"  %>
+        <%= f.text_field :mobile_phone %>
+      </p>
+      <p>
+        <%= f.label :password, "密码" %>
+        <%= f.password_field :password %>
+      </p>
+      <p>
+        <%= f.submit "登录", class: "btn btn-large btn-primary" %>
+      </p>
+    <% end %>
+    <p>新用户？<%= link_to "注册", signup_path %></p>
+  </div>
+</div>
