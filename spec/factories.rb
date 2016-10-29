@@ -1,9 +1,12 @@
 # encoding: utf-8
 FactoryGirl.define do
     factory :user do
-        name "测试用户"
-        mobile_phone "1" * 11
-        password "foobar"
-        password_confirmation "foobar"
+        sequence(:name) { |n| "u#{n}" }
+        sequence(:mobile_phone) { |n| (11111111111 + n).to_s }
+        password "666666"
+        password_confirmation "666666"
+        factory :admin do
+          admin true
+        end
     end
 end

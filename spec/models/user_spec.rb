@@ -2,10 +2,7 @@
 require 'spec_helper'
 
 describe User do
-  before { @user = User.new(name: "测试用户", 
-    mobile_phone: "13658809101",
-    password: "foobar",
-    password_confirmation: "foobar") }
+  before { @user = FactoryGirl.create(:user) }
   subject { @user }
 
   it { should respond_to(:name) }
@@ -14,9 +11,16 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
+  it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
   it { should be_valid }
   
+  describe "with admin attribute set to 'true'" do
+    before { @user.toggle!(:admin) }
+
+    it { should be_admin }
+  end
+
   describe "when name is not present" do
     before {@user.name = " " }
     it { should_not be_valid }
@@ -54,11 +58,14 @@ describe User do
 
   describe "when mobile_phone is already taken" do
     before do
-      user_with_same_phone = @user.dup
-      user_with_same_phone.save
+      @user_with_same_phone = @user.dup
+      @user_with_same_phone.save
     end
 
-    it { should_not be_valid }
+    it "should not be valid" do
+      @user_with_same_phone.should_not be_valid
+    end
+    #it { should_not be_valid }
   end
 
   describe "when password is not present" do
