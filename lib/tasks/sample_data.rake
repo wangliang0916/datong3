@@ -17,5 +17,17 @@ namespace :db do
         password: password,
         password_confirmation: password)
     end
+
+    99.times do |n|
+      name = "c#{n}"
+      mobile_phone = (21111111111 + n).to_s
+      password = "6" * 6
+      Customer.create!(name:name, 
+        mobile_phone: mobile_phone)
+    end
+    
+    u1 = User.find_by_name("u1")
+    u1.customers = Customer.all
+
   end
 end

@@ -1,5 +1,6 @@
 <li>
     <%= link_to user.name, user %>
+    <%= PinYin.abbr(user.name) %>
     <% if current_user.admin? && !current_user?(user) %>
       <%= link_to "删除", user, method: :delete, data: { confirm: "确认删除?" } %>
     <% end %>

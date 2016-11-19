@@ -1,4 +1,11 @@
 Datong3::Application.routes.draw do
+  resources :customers do
+    collection { get 'search' }
+  end
+
+
+  resources :assigns, only: [:edit, :create, :destroy]
+
   root to: 'static_pages#home'
   resources :users
   

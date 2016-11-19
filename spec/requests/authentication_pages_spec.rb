@@ -1,7 +1,33 @@
 # encoding: utf-8
 require 'spec_helper'
 
+shared_examples "visit with" do |command|
+  #用http动作可测试response
+   #用visit无法测试response
+  before { eval(command) }
+  specify { response.should redirect_to(signin_path) }
+end
+
+shared_examples "actions" do |name|
+  describe "visit #{name} index" do  
+    include_examples "visit with", "get #{name}s_path"
+  end
+
+  describe "visit edit #{name} page" do
+    include_examples "visit with", "get edit_#{name}_path(#{name})"
+  end
+
+  describe "commit update" do 
+    include_examples "visit with", "put #{name}_path(#{name})"
+  end
+
+  describe "delete" do
+    include_examples "visit with", "delete #{name}_path(#{name})"
+  end
+end
+
 describe "Authentication" do
+  before(:all) { clear_db }
   subject  { page }
 
   describe "signin" do
@@ -23,7 +49,7 @@ describe "Authentication" do
     end
 
     describe "with valid information" do
-      let(:user) { FactoryGirl.create(:user) }
+      let!(:user) { FactoryGirl.create(:user) }
       before { sign_in user }
 
       it { should have_selector('title', text: full_title(user.name)) }
@@ -45,20 +71,12 @@ describe "Authentication" do
       let(:user) { FactoryGirl.create(:user) }
 
       describe "in the Users controller" do
-        describe "visit edit user page" do
-          before { visit edit_user_path(user) }
-          it { should have_selector('title', text: full_title('登录')) }
-        end
+        include_examples "actions", "user"
+      end
 
-        describe "提交更新" do 
-          before { put user_path(user) }
-          specify { response.should redirect_to(signin_path) }
-        end
-
-        describe "visiting the user index" do
-          before { visit users_path }
-          it { should have_selector('title', text: full_title("登录")) }
-        end
+      describe "in the Customers controller" do
+        let(:customer) { FactoryGirl.create(:customer) }
+        include_examples "actions", "customer"
       end
 
       describe "试图访问保护页面" do

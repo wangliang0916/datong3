@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161029035510) do
+ActiveRecord::Schema.define(:version => 20161104042952) do
+
+  create_table "customers", :force => true do |t|
+    t.string   "name"
+    t.string   "mobile_phone"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "pinyin"
+  end
+
+  add_index "customers", ["mobile_phone"], :name => "index_customers_on_mobile_phone", :unique => true
+  add_index "customers", ["pinyin"], :name => "index_customers_on_pinyin"
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -21,9 +32,16 @@ ActiveRecord::Schema.define(:version => 20161029035510) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "admin",           :default => false
+    t.string   "pinyin"
   end
 
   add_index "users", ["mobile_phone"], :name => "index_users_on_mobile_phone", :unique => true
+  add_index "users", ["pinyin"], :name => "index_users_on_pinyin"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "users_customers", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "customer_id"
+  end
 
 end

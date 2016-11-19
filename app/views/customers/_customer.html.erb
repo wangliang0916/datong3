@@ -1,0 +1,13 @@
+<tr>
+  <td><%= link_to customer.name, customer %></td>
+  <td><%= link_to customer.mobile_phone, customer %></td>
+  <td><%= render partial: "user", collection: customer.users %></td>
+  <td>
+    <%= link_to "编辑", edit_customer_path(customer) %>
+    <%= link_to "取消指派", assign_path(customer), method: :delete, data: { confirm: "确认取消指派？" } %>
+    <% if current_user.admin? %>
+    <%= link_to "指派", edit_assign_path(customer) %>
+    <%= link_to "删除", customer, method: :delete, data: { confirm: "确认删除？" } %>
+    <% end %>
+  </td>
+</tr>

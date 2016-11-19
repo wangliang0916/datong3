@@ -2,6 +2,7 @@
 include ApplicationHelper
 
 def sign_in(user)
+  #puts "utilities: #{user.name} : #{user.admin?}"
   visit signin_path
   fill_in "手机号码", with: user.mobile_phone 
   fill_in "密码", with: user.password
@@ -9,3 +10,10 @@ def sign_in(user)
   #sign in when not using Capybara
   cookies[:remember_token] = user.remember_token
 end
+
+
+def clear_db
+  User.delete_all
+  Customer.delete_all
+end
+

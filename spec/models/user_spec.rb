@@ -6,6 +6,7 @@ describe User do
   subject { @user }
 
   it { should respond_to(:name) }
+  it { should respond_to(:pinyin) }
   it { should respond_to(:mobile_phone) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
@@ -13,6 +14,7 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:customers) }
   it { should be_valid }
   
   describe "with admin attribute set to 'true'" do
@@ -106,6 +108,12 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "pinyin" do
+    before { @user.save }
+    its(:pinyin) { should_not be_blank }
+    its(:pinyin) { should == PinYin.abbr(@user.name) }
   end
 end
 
