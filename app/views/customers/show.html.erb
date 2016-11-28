@@ -11,3 +11,23 @@
     </section>
   </aside>
 <div>
+
+<table class="table table-striped">
+  <caption>客户专员</caption>
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>手机号码</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customer.users.each do |user| %>
+    <tr>
+      <td><%= link_to user.name, user_path(user)  %></td>
+      <td><%= link_to user.mobile_phone, user_path(user)  %></td>
+      <td><%= link_to "删除", assign_path(customer_id: @customer.id, user_id: user.id), method: 'delete' %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

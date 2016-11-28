@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
   validates_presence_of :password_confirmation, message:"两次密码不一致", allow_blank: true, allow_nil: true
 
   before_save :create_remember_token, :create_pinyin
+
+  def full_name
+    [name, mobile_phone].join(" | ")
+  end
 private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64

@@ -1,13 +1,14 @@
 #source 'https://rubygems.org'
-source 'https://ruby.taobao.org/'
+#source 'https://ruby.taobao.org/'
+source 'https://gems.ruby-china.org/'
 
 gem 'rails', '3.2.13'
 gem 'bootstrap-sass', '2.0.4'
 gem 'bcrypt-ruby', '3.0.1'
-gem 'thin'
+gem 'thin', '1.7.0'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
-gem 'ruby-pinyin'
+gem 'ruby-pinyin', '0.5.0'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
@@ -28,6 +29,7 @@ group :assets do
 end
 
 gem 'jquery-rails', '2.0.2'
+gem 'jquery-ui-rails', '4.1.2'
 gem 'carrierwave', '0.11.2'
 
 group :test do

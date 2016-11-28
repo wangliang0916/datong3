@@ -1,2 +1,22 @@
-<h1>Assigns#edit</h1>
-<p>Find me in app/views/assigns/edit.html.erb</p>
+<% provide(:title, "指派") %>
+<h1>指派客户专员</h1>
+<p>
+  <h2>客户姓名：<%= @customer.name %></h2>
+</p>
+<p>
+  <h2>客户电话：<%= @customer.mobile_phone %></h2>
+</p>
+<div class="row">
+  <div class="span6 offset3">
+<p>
+  <%= label_tag(:user_name, "客户专员：") %>
+  <%= text_field_tag(:user_name) %>
+</p>
+<%= form_tag(edit_assign_path(@customer), method: "get") do %>
+  <%= hidden_field_tag :user_id %>
+  <%= hidden_field_tag :customer_id, @customer.id %>
+  <%= submit_tag "指派", class: "btn btn-large btn-primary" %>
+<% end %>
+</div>
+</div>
+

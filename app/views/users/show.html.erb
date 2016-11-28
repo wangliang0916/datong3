@@ -10,5 +10,22 @@
       </h2>
     </section>
   </aside>
+  <table class="table table-striped">
+    <caption>客户列表</caption>
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>手机号码</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.customers.each do |customer| %>
+      <tr>
+        <td><%= link_to customer.name, customer_path(customer) %></td>
+        <td><%= link_to customer.mobile_phone, customer_path(customer) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 <div>
 

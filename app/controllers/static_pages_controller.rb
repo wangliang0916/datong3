@@ -3,6 +3,8 @@ class StaticPagesController < ApplicationController
   end
 
   def home
-    
+  end
+
+  def error
   end
 end

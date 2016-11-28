@@ -7,10 +7,11 @@ class CustomersController < ApplicationController
   end
 
   def search
-    if params[:search][:show_all] == "1" then
-      @customers = Customer.paginate(page: params[:page])
+    name = params[:search][:name]
+    if name == PinYin.abbr(name)
+      @customers = current_user.customers.where("pinyin like ?", "%#{name}%").order("pinyin asc").paginate(page: params[:page])
     else
-      @customers = current_user.customers.paginate(page: params[:page])
+      @customers = current_user.customers.where("name like ?", "%#{name}%").order("name asc").paginate(page: params[:page])
     end
     render 'index'
   end

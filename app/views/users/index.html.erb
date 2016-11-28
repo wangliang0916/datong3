@@ -3,8 +3,18 @@
 
 <%= will_paginate %>
 
-<ul class="users">
+<table class="table table-striped">
+  <caption>用户列表</caption>
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>手机号码</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
     <%= render @users %>
-</ul>
+  </tbody>
+</table>
 
 <%= will_paginate %>

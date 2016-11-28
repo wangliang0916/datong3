@@ -17,6 +17,9 @@ private
   end
 
   def admin_user
-    redirect_to(root_path) unless current_user.admin?
+    if !current_user.admin?
+      flash[:error] = "请联系系统管理员！"
+      redirect_to(error_path)
+    end
   end
 end

@@ -26,8 +26,8 @@ namespace :db do
         mobile_phone: mobile_phone)
     end
     
-    u1 = User.find_by_name("u1")
-    u1.customers = Customer.all
-
+    admin.customers = Customer.where("id < 32")
+    u0 = User.find_by_name("u0")
+    u0.customers = Customer.where("id >=32")
   end
 end

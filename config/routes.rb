@@ -4,18 +4,25 @@ Datong3::Application.routes.draw do
   end
 
 
-  resources :assigns, only: [:edit, :create, :destroy]
+  resources :assigns, only: [:create, :edit]
+  match '/assign', to: 'assigns#destroy', via: :delete
 
   root to: 'static_pages#home'
-  resources :users
+
+  resources :users do
+    collection { get 'search' }
+  end
   
   resources :sessions, only: [:new, :create, :destroy]
+
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/help', to: "static_pages#help"
 
   match '/signup', to: 'users#new'
+
+  match '/error', to: "static_pages#error"
   
 
   # The priority is based upon order of creation:

@@ -1,8 +1,8 @@
 # encoding: utf-8
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :signed_in_user, only: [:index, :show, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
-  before_filter :admin_user, only: :destroy
+  before_filter :admin_user, only: [:index, :destroy]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -45,6 +45,19 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "成功删除用户."
     redirect_to users_path
+  end
+
+  def search
+    if params[:term] == PinYin.abbr(params[:term])
+      users = User.where("pinyin like '%#{params[:term]}%'")
+    else
+      users = User.where("name like '%#{params[:term]}%'")
+    end
+    data = []
+    users.each do |user|
+      data << {label: user.full_name, value: user.id}
+    end
+    render json: data
   end
 
 end

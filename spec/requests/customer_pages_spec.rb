@@ -12,28 +12,21 @@ describe "Customers page" do
   describe "index" do
     before { visit customers_path }
 
-    describe "page" do
-      it { should have_selector('title', text: full_title("客户列表")) }
-      it { should have_selector('h1',  text: "客户列表") }
-    end
+    it { should have_selector('title', text: full_title("客户列表")) }
 
     describe "list customer" do
       before(:all) { 31.times { user.customers << FactoryGirl.create(:customer) }}
       after(:all) { Customer.delete_all }
       
       context "current user" do
-        it { should_not have_content("所有客户") }
         it { should have_selector('div.pagination') }
 
         it "should list each customer" do
           Customer.paginate(page:1).each do |customer|
             expect(page).to have_link(customer.name, href: customer_path(customer))
             expect(page).to have_link(customer.mobile_phone, href: customer_path(customer))
-            expect(page).to have_link(user.name, href:user_path(user))
             expect(page).to have_link("编辑", href: edit_customer_path(customer))
-            expect(page).to have_link("取消指派", href: assign_path(customer), method: 'delete')
-            expect(page).not_to have_link("指派", href:edit_assign_path(customer))
-            expect(page).not_to have_link("删除", href:customer_path(customer), method: 'delete' )
+            expect(page).to have_link("取消指派", href: assign_path(customer_id: customer.id, user_id: user.id), method: 'delete')
           end
         end
 
@@ -57,25 +50,44 @@ describe "Customers page" do
       end
     end
 
-    context "admin" do
-      let(:admin) { FactoryGirl.create(:admin) }
-      let(:customer) { FactoryGirl.create(:customer) }
-      before do
-        admin.customers << customer 
-        sign_in admin
-        visit customers_path
-      end
+    #context "admin" do
+    #  let(:admin) { FactoryGirl.create(:admin) }
+    #  let(:customer) { FactoryGirl.create(:customer) }
+    #  before do
+    #    admin.customers << customer 
+    #    sign_in admin
+    #    visit customers_path
+    #  end
 
-      describe "page" do
-        it { should have_unchecked_field("所有客户") }
-        it { should have_link("删除", href:customer_path(customer), method:'delete') }
-        it { should have_link("指派", href:edit_assign_path(customer)) }
-      end
+    #  describe "page" do
+    #    it { should have_unchecked_field("所有客户") }
+    #    it { should have_link("删除", href:customer_path(customer), method:'delete') }
+    #    it { should have_link("指派", href:edit_assign_path(customer)) }
+    #  end
 
-      it "should destroy customer" do
-        expect { click_link("删除") }.to change(Customer, :count).by(-1)
+    #  it "should destroy customer" do
+    #    expect { click_link("删除") }.to change(Customer, :count).by(-1)
+    #  end
+    #end
+  end
+
+  describe "show customer" do
+    let(:customer) { FactoryGirl.create(:customer) }
+    before do
+      user.customers << customer 
+      visit customer_path(customer)
+    end
+    it { should have_selector('title', text: full_title(customer.name)) }
+    it { should have_selector('h1', text: customer.name) }
+    
+    it "should list users" do
+      customer.users.each do |user|
+        expect(page).to have_link(user.name, href: user_path(user)) 
+        expect(page).to have_link(user.mobile_phone, href: user_path(user)) 
+        expect(page).to have_link("删除", href: assign_path(customer_id: customer.id, user_id: user.id), method: 'delete') 
       end
     end
+
   end
 
   describe "new customer" do
@@ -84,7 +96,6 @@ describe "Customers page" do
 
     describe "page" do
       it { should have_selector('title', text: full_title("新客户")) }
-      it { should have_selector('h1', text: "新客户") }
     end
 
     describe "with invlid infomation" do
@@ -127,7 +138,6 @@ describe "Customers page" do
 
     describe "page" do
       it { should have_selector('title', text: full_title("编辑客户")) }
-      it { should have_selector('h1', text: "编辑客户") }
     end
 
     describe "with invalid information" do
