@@ -87,7 +87,6 @@ describe "Customers page" do
         expect(page).to have_link("删除", href: assign_path(customer_id: customer.id, user_id: user.id), method: 'delete') 
       end
     end
-
   end
 
   describe "new customer" do

@@ -15,3 +15,5 @@
 /tmp
 /tags
 *.swp
+/public/uploads/attachment/file
+/public/uploads/tmp

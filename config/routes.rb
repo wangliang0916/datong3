@@ -1,8 +1,11 @@
 Datong3::Application.routes.draw do
+
   resources :customers do
     collection { get 'search' }
+    resources :attachments, only: [:new, :create, :destroy]
   end
-
+  
+  resources :attachments, only: [:edit, :update]
 
   resources :assigns, only: [:create, :edit]
   match '/assign', to: 'assigns#destroy', via: :delete

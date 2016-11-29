@@ -31,3 +31,26 @@
     <% end %>
   </tbody>
 </table>
+<table class="table table-striped">
+  <caption>附件:
+<%= link_to "上传附件", new_customer_attachment_path(@customer) %></caption>
+  <thead>
+    <tr>
+      <th>附件信息</th>
+      <th>附件</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @customer.attachments.each do |attachment|  %>
+    <tr>
+      <td><%= attachment.description %></td>
+      <td><%= link_to attachment.file_identifier, attachment.file.url %></td>
+      <td>
+      <%= link_to "编辑", edit_attachment_path(attachment) %>
+      <%= link_to "删除", customer_attachment_path(@customer, attachment), method: 'delete' %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

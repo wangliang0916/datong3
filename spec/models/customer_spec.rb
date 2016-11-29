@@ -9,6 +9,7 @@ describe "customer" do
   it { should respond_to(:pinyin) }
   it { should respond_to(:mobile_phone) }
   it { should respond_to(:users) }
+  it { should respond_to(:attachments) }
   it { should be_valid }
   
 

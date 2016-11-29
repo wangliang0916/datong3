@@ -1,0 +1,7 @@
+<% provide(:title, "编辑附件信息") %>
+<h1>编辑附件信息</h1>
+<%= form_for @attachment do |f| %>
+  <%= f.label :description, "附件信息" %>
+  <%= f.text_area :description, value: @attachment.description, cols: 80, rows: 3 %>
+  <%= f.submit "提交" %>
+<% end %>

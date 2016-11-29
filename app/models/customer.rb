@@ -3,6 +3,7 @@ class Customer < ActiveRecord::Base
   attr_accessible :mobile_phone, :name
   
   has_and_belongs_to_many :users, join_table: "users_customers"
+  has_many :attachments, dependent: :destroy
 
   validates_presence_of :name, message: "姓名不能为空"
   validates_length_of :name, maximum: 20, message: "姓名长度不能超过20个字符", allow_blank: true
