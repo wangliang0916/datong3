@@ -1,0 +1,12 @@
+<% provide(:title, "新建通知") %>
+<h1>新建通知</h1>
+<%= form_for @customer.notifies.build, url: customer_notifies_path do |f| %>
+    <%= f.label :content, "通知内容" %>
+    <%= f.text_area :content, cols: 80, rows: 3 %>
+    <%= f.label :date, "通知日期" %>
+    <%= f.text_field :date %>
+    <%= f.label :time, "时间" %>
+    <%= f.text_field :time %>
+    <%= f.hidden_field :customer_id, value: @customer.id %>
+    <%= f.submit "提交" %>
+<% end %>

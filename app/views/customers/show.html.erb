@@ -54,3 +54,28 @@
     <% end %>
   </tbody>
 </table>
+<table class="table table-striped">
+  <caption>通知:
+<%= link_to "新建通知", new_customer_notify_path(@customer) %></caption>
+  <thead>
+    <tr>
+      <th>通知内容</th>
+      <th>通知日期</th>
+      <th>通知时间</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @customer.notifies.each do |notify|  %>
+    <tr>
+      <td><%= notify.content %></td>
+      <td><%= notify.date %></td>
+      <td><%= notify.time %></td>
+      <td>
+      <%= link_to "编辑", edit_customer_notify_path(@customer, notify) %>
+      <%= link_to "删除", customer_notify_path(@customer, notify), method: 'delete' %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161128093029) do
+ActiveRecord::Schema.define(:version => 20161130012134) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "customer_id"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(:version => 20161128093029) do
 
   add_index "customers", ["mobile_phone"], :name => "index_customers_on_mobile_phone", :unique => true
   add_index "customers", ["pinyin"], :name => "index_customers_on_pinyin"
+
+  create_table "notifies", :force => true do |t|
+    t.integer  "customer_id"
+    t.string   "content"
+    t.string   "date"
+    t.string   "time"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"

@@ -87,6 +87,17 @@ describe "Customers page" do
         expect(page).to have_link("删除", href: assign_path(customer_id: customer.id, user_id: user.id), method: 'delete') 
       end
     end
+
+    describe "list notifies" do
+      let!(:notify) { FactoryGirl.create(:notify, customer: customer) }
+      before do
+        visit customer_path(customer)
+      end
+      it { should have_selector('td', text: notify.content) }
+      it "should delete notify" do
+        expect {delete customer_notify_path(customer, notify)}.to change(customer.notifies, :count).by(-1)
+      end
+    end
   end
 
   describe "new customer" do

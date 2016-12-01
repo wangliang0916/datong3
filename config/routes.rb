@@ -3,6 +3,7 @@ Datong3::Application.routes.draw do
   resources :customers do
     collection { get 'search' }
     resources :attachments, only: [:new, :create, :destroy]
+    resources :notifies, except: :index
   end
   
   resources :attachments, only: [:edit, :update]
