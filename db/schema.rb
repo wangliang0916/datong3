@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161130012134) do
+ActiveRecord::Schema.define(:version => 20161201032237) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "customer_id"
@@ -39,6 +39,16 @@ ActiveRecord::Schema.define(:version => 20161130012134) do
     t.string   "time"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "customer_name"
+    t.string   "customer_mobile_phone"
+    t.string   "content"
+    t.string   "notify_time"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "users", :force => true do |t|

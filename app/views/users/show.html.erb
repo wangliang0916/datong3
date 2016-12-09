@@ -11,6 +11,27 @@
     </section>
   </aside>
   <table class="table table-striped">
+    <caption>任务列表</caption>
+    <thead>
+      <tr>
+        <th>客户姓名</th>
+        <th>手机号码</th>
+        <th>内容</th>
+        <th>通知时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.tasks.each do |task| %>
+      <tr>
+        <td><%= task.customer_name %></td>
+        <td><%= task.customer_mobile_phone %></td>
+        <td><%= task.content %></td>
+        <td><%= task.notify_time %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <table class="table table-striped">
     <caption>客户列表</caption>
     <thead>
       <tr>
@@ -27,5 +48,6 @@
       <% end %>
     </tbody>
   </table>
+
 <div>
 
