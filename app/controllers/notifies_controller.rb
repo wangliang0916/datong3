@@ -2,15 +2,16 @@
 class NotifiesController < ApplicationController
   def new
     @customer = Customer.find params[:customer_id]
+    @notify = @customer.notifies.build
   end
 
   def create
-    @customer = Customer.find params[:notify][:customer_id]
-    @notify = @customer.notifies.build
+    @customer = Customer.find params[:customer_id]
+    @notify = eval(params[:notify][:type] + "Notify.new") 
     @notify.content = params[:notify][:content]
     @notify.date = params[:notify][:date]
     @notify.time = params[:notify][:time]
-    if @notify.save
+    if @customer.notifies << @notify
       flash[:success] = "成功创建通知!"
       redirect_to @customer
     else

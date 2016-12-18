@@ -89,7 +89,7 @@ describe "Customers page" do
     end
 
     describe "list notifies" do
-      let!(:notify) { FactoryGirl.create(:notify, customer: customer) }
+      let!(:notify) { FactoryGirl.create(:once_notify, customer: customer) }
       before do
         visit customer_path(customer)
       end

@@ -1,11 +1,3 @@
 <% provide(:title, "编辑通知") %>
 <h1>编辑通知</h1>
-<%= form_for @notify, url: customer_notify_path(@customer, @notify) do |f| %>
-    <%= f.label :content, "通知内容" %>
-    <%= f.text_area :content, cols: 80, rows: 3 %>
-    <%= f.label :date, "通知日期" %>
-    <%= f.text_field :date %>
-    <%= f.label :time, "时间" %>
-    <%= f.text_field :time %>
-    <%= f.submit "更新" %>
-<% end %>
+<%= render partial: 'form', locals: { notify: @notify, url: customer_notify_path(@customer, @notify), btnName: "更新" } %>
