@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161209061356) do
+ActiveRecord::Schema.define(:version => 20161220033309) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "customer_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20161209061356) do
     t.string   "notify_time"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.string   "notify_date"
   end
 
   create_table "users", :force => true do |t|

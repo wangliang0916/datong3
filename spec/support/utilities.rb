@@ -15,5 +15,7 @@ end
 def clear_db
   User.delete_all
   Customer.delete_all
+  Notify.delete_all
+  Task.delete_all
 end
 

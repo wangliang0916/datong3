@@ -62,6 +62,19 @@ describe "User Pages" do
 
       it { should have_link(customer.name, href: customer_path(customer)) }
     end
+
+    describe "list user's tasks" do
+      before do
+        task = Task.new(content:"test_content", 
+          customer_name:"test_name", 
+          customer_mobile_phone:"test_phone", 
+          notify_date:"2016-01-01",
+          notify_time:"08:00")
+        user.tasks << task
+        visit user_path(user)
+      end
+      it { should have_content("test_content") }
+    end
   end
 
   describe "signup" do

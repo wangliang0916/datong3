@@ -22,4 +22,14 @@ describe EveryMonthNotify do
     before { notify.date = "2016-9-1" }
     it { should_not be_valid }
   end
+
+  describe "format date and time" do
+    before do
+      notify.date = "1"
+      notify.time = "8:0"
+      notify.save
+    end
+    specify { notify.reload.date == "01" }
+    specify { notify.reload.time == "08:00" }
+  end
 end
