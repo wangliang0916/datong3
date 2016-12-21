@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_mobile_phone(params[:session][:mobile_phone])
     if user && user.authenticate(params[:session][:password])
-      sign_in user
+      sign_in user, params[:session][:remember_me]
       redirect_back_or user
     else
       flash.now[:error] = "手机号码或密码错误！"
