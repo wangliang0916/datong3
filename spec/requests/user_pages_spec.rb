@@ -41,40 +41,39 @@ describe "User Pages" do
       end
     end
 
+    describe "reset password link" do
+      before(:all) { @user = FactoryGirl.create(:user) }
+      after(:all) { User.delete_all }
+      before { click_link("密码重置") }
+      it { should have_selector('div.alert.alert-success', text: "密码重置成功") }
+    end
+    
+
   end
 
   describe "profile page" do
-    let(:user) { FactoryGirl.create(:user) }
-    before do
-      sign_in user
-      visit user_path(user) 
+    describe "normal user" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        sign_in user
+        visit user_path(user) 
+      end
+
+      it { should have_selector('title', text: full_title(user.name)) }
+      it { should have_selector('td', text: user.name) }
+      it { should have_selector('td', text: "员工") }
     end
 
-    it { should have_selector('title', text: full_title(user.name)) }
-    it { should have_selector('h1', text: user.name) }
+    describe "admin" do
+      let(:admin) { FactoryGirl.create(:admin) }
+      before do
+        sign_in admin
+        visit user_path(admin) 
+      end
+
+      it { should have_selector('td', text: "管理员") }
+    end
     
-    describe "list user's customers" do
-      let(:customer) { FactoryGirl.create(:customer) }
-      before do
-        user.customers << customer 
-        visit user_path(user)
-      end
-
-      it { should have_link(customer.name, href: customer_path(customer)) }
-    end
-
-    describe "list user's tasks" do
-      before do
-        task = Task.new(content:"test_content", 
-          customer_name:"test_name", 
-          customer_mobile_phone:"test_phone", 
-          notify_date:"2016-01-01",
-          notify_time:"08:00")
-        user.tasks << task
-        visit user_path(user)
-      end
-      it { should have_content("test_content") }
-    end
   end
 
   describe "signup" do

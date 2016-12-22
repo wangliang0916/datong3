@@ -2,7 +2,8 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index, :show, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
-  before_filter :admin_user, only: [:index, :destroy]
+  before_filter :correct_user_or_admin, only: :show
+  before_filter :admin_user, only: [:index, :destroy, :reset_password]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -38,6 +39,19 @@ class UsersController < ApplicationController
       redirect_to @user
     else
       render 'edit'
+    end
+  end
+
+  def reset_password
+    @user = User.find(params[:id])
+    @user.password = "123456"
+    @user.password_confirmation = "123456"
+    if @user.save
+      flash[:success] = "密码重置成功,缺省密码：123456"
+      redirect_to @user
+    else
+      flash[:error] = "密码未能重置，请联系系统管理员!"
+      redirect_to error_path
     end
   end
 

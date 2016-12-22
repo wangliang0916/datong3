@@ -5,6 +5,7 @@
 <%= will_paginate %>
  <table class="table table-striped">
     <caption>共有 <%= @tasks.count %> 个任务</caption>
+    <% if @tasks.any? %>
     <thead>
       <tr>
         <th>客户</th>
@@ -13,13 +14,9 @@
       </tr>
     </thead>
     <tbody>
-      <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.customer_name + " : " + task.customer_mobile_phone %></td>
-        <td><%= task.content %></td>
-        <td><%= task.notify_date + " " + task.notify_time %></td>
-      </tr>
-      <% end %>
+      <%= render @tasks %>
     </tbody>
+    <% end %>
+    
   </table>
 <%= will_paginate %>

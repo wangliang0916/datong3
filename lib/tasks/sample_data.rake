@@ -25,6 +25,17 @@ namespace :db do
       Customer.create!(name:name, 
         mobile_phone: mobile_phone)
     end
+
+    59.times do |n|
+      t = Task.new
+      t.customer_name = "c#{n}"
+      t.customer_mobile_phone = "21111111#{111+n}"
+      t.content = "content #{n}"
+      t.notify_date = "2016-12-22"
+      t.notify_time = "08:#{n}"
+      t.user = admin
+      t.save
+    end
     
     admin.customers = Customer.where("id < 32")
     u0 = User.find_by_name("u0")

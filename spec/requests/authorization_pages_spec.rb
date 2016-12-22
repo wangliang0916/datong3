@@ -26,14 +26,19 @@ describe "authorization" do
 
     it { should_not have_link("所有用户", href: users_path) }
 
-    describe "visit users index" do
+    describe "can't list users" do
       before { visit users_path }
       it { should have_selector('title', text: full_title("错误")) }
       it { should have_selector('div.alert.alert-error', text: "请联系系统管理员") }
     end
-    
-    describe "submitting a DELETE request to the Users#destroy action" do
+
+    describe "can't delete user" do
       before { delete user_path(user) }
+      specify { response.should redirect_to(error_path) }
+    end
+
+    describe "can't reset password" do
+      before { put reset_password_user_path(user) }
       specify { response.should redirect_to(error_path) }
     end
   end
@@ -43,6 +48,26 @@ describe "authorization" do
     before { sign_in admin }
 
     it { should have_link("所有用户", href: users_path) }
+
+    describe "visit other user" do
+      let(:another) { FactoryGirl.create(:user) }
+      
+      describe "can show" do
+        before { visit user_path(another) }
+        it { should have_selector('title', text: full_title(another.name)) }
+      end
+
+      describe "can't edit" do
+        before { visit edit_user_path(another) }
+        it { should have_selector('title', text: full_title("错误")) }
+      end
+
+      describe "can't update" do
+        before { put user_path(another) }
+        specify { response.should redirect_to(error_path) }
+      end
+
+    end
   end
 
   context "as wrong user" do
@@ -50,14 +75,19 @@ describe "authorization" do
     let(:wrong_user) { FactoryGirl.create(:user, mobile_phone: "2" * 11) }
     before { sign_in user }
     
-    describe "visit edit page" do
-      before { visit edit_user_path(wrong_user) }
-      it { should_not have_selector('title', text: full_title(wrong_user.name)) }
+    describe "can't show other user" do
+      before { visit user_path(wrong_user) }
+      it { should have_selector('title', text: full_title("错误")) }
     end
 
-    describe "submitting a PUT request to the Users#update action" do
+    describe "can't edit other user" do
+      before { visit edit_user_path(wrong_user) }
+      it { should have_selector('title', text: full_title("错误")) }
+    end
+
+    describe "can't update other user" do
       before { put user_path(wrong_user) }
-      specify { response.should redirect_to(root_path) }
+      specify { response.should redirect_to(error_path) }
     end
   end
 end

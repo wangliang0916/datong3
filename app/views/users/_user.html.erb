@@ -2,7 +2,7 @@
   <td><%= link_to user.name, user %></td>
   <td><%= link_to user.mobile_phone, user %></td>
   <td>
-    <%= link_to "编辑", edit_user_path(user) %>
+    <%= link_to "密码重置", reset_password_user_path(user), method: 'put' %>
     <% if current_user.admin? && !current_user?(user) %>
     <%= link_to "删除", user, method: :delete, data: { confirm: "确认删除？" } %>
     <% end %>

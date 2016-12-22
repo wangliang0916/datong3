@@ -16,6 +16,7 @@ Datong3::Application.routes.draw do
   resources :users do
     collection { get 'search' }
     resources :tasks, only: :index
+    member { put 'reset_password' }
   end
   
   resources :sessions, only: [:new, :create, :destroy]

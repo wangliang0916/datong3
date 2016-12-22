@@ -1,55 +1,22 @@
 <% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= @user.name %>
-      </h1>
-      <h2>
-        <%= @user.mobile_phone %>
-      </h2>
-    </section>
-  </aside>
-  <table class="table table-striped">
-    <caption>任务列表</caption>
-    <thead>
-      <tr>
-        <th>客户姓名</th>
-        <th>手机号码</th>
-        <th>内容</th>
-        <th>通知日期</th>
-        <th>通知时间</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @user.tasks.each do |task| %>
-      <tr>
-        <td><%= task.customer_name %></td>
-        <td><%= task.customer_mobile_phone %></td>
-        <td><%= task.content %></td>
-        <td><%= task.notify_date %></td>
-        <td><%= task.notify_time %></td>
-      </tr>
+<h1>用户资料</h1>
+<table>
+  <tr>
+    <td><b>姓名：</b></td>
+    <td><%= @user.name %></td>
+  </tr>
+  <tr>
+    <td><b>手机：</b></td>
+    <td><%= @user.mobile_phone %></td>
+  </tr>
+  <tr>
+    <td><b>角色：</b></td>
+    <td>
+      <% if @user.admin?  %>
+        管理员
+      <% else %>
+        员工
       <% end %>
-    </tbody>
-  </table>
-  <table class="table table-striped">
-    <caption>客户列表</caption>
-    <thead>
-      <tr>
-        <th>姓名</th>
-        <th>手机号码</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @user.customers.each do |customer| %>
-      <tr>
-        <td><%= link_to customer.name, customer_path(customer) %></td>
-        <td><%= link_to customer.mobile_phone, customer_path(customer) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-<div>
-
+    </td>
+  </tr>
+</table>
