@@ -84,7 +84,7 @@ describe "Authentication" do
       let!(:user) { FactoryGirl.create(:user) }
       before { sign_in user }
       
-      it { should have_selector('title', text: full_title(user.name)) }
+      it { should have_selector('title', text: full_title("任务列表")) }
       it { should have_link("注销", href: signout_path) }
       
       describe "followed by signout" do
@@ -97,4 +97,6 @@ describe "Authentication" do
   include_examples "none-sign-in user visit controller", "user", ["index", "show", "edit", "update", "delete"]
 
   include_examples "none-sign-in user visit controller", "customer", ["index","new", "create", "show", "edit", "update", "delete"]
+
+  include_examples "redirect to sign in", "get user_tasks_path(1)"
 end

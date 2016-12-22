@@ -1,0 +1,25 @@
+<% provide(:title, "任务列表") %>
+
+<h1>任务列表</h1>
+
+<%= will_paginate %>
+ <table class="table table-striped">
+    <caption>共有 <%= @tasks.count %> 个任务</caption>
+    <thead>
+      <tr>
+        <th>客户</th>
+        <th>通知内容</th>
+        <th>通知时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.customer_name + " : " + task.customer_mobile_phone %></td>
+        <td><%= task.content %></td>
+        <td><%= task.notify_date + " " + task.notify_time %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<%= will_paginate %>

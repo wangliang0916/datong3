@@ -15,6 +15,7 @@ Datong3::Application.routes.draw do
 
   resources :users do
     collection { get 'search' }
+    resources :tasks, only: :index
   end
   
   resources :sessions, only: [:new, :create, :destroy]
