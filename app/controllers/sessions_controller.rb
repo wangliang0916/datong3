@@ -1,7 +1,8 @@
 # encoding: utf-8
 class SessionsController < ApplicationController
+  skip_before_filter :signed_in_user
+
   def new
-    
   end
 
   def create

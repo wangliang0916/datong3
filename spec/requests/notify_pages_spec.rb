@@ -81,9 +81,9 @@ describe "notify page" do
         expect {  click_button '提交' }.to change(customer.notifies, :count)
       end
       
-      describe "redirect to customer page" do
+      describe "redirect to index page" do
         before {  click_button '提交' }
-        it { should have_selector('title', text: full_title(customer.name)) } 
+        it { should have_selector('title', text: full_title("通知列表")) } 
         it { should have_selector('div.alert-success', text: "成功创建通知") }
       end
     end
@@ -98,10 +98,10 @@ describe "notify page" do
     describe "with valid infomation" do
       before do
         fill_in '通知内容', with: "modify content"
-        click_button "更新"
+        click_button "提交"
       end
 
-      it { should have_selector('title', text: full_title(customer.name)) }
+      it { should have_selector('title', text: full_title("通知列表")) }
       it { should have_selector('div.alert.alert-success', text: "成功更新通知") }
       specify { notify.reload.content == "modify content" }
     end

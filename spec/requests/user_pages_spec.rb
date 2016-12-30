@@ -83,7 +83,7 @@ describe "User Pages" do
 
     describe "with invalid information" do
       it "should not create a user" do
-        expect { click_button  "创建用户" }.not_to change(User, :count)
+        expect { click_button  "提交" }.not_to change(User, :count)
       end
     end
 
@@ -96,11 +96,11 @@ describe "User Pages" do
       end
       
       it "should create a user" do
-        expect { click_button "创建用户"}.to change(User, :count)
+        expect { click_button "提交"}.to change(User, :count)
       end
 
       describe "after saving the user" do
-        before { click_button  "创建用户" }
+        before { click_button  "提交" }
 
         it { should have_selector('title', text: full_title("测试用户")) }
         it { should have_selector('div.alert.alert-success', text: "欢迎") }  
@@ -119,7 +119,7 @@ describe "User Pages" do
     it { should have_selector('title', text: full_title("编辑用户")) }
 
     describe "with invalid information" do
-      before { click_button "更新" }
+      before { click_button "提交" }
       it { should have_xpath('//span[contains(@class,"validation-error")]') }
     end
     
@@ -131,7 +131,7 @@ describe "User Pages" do
         fill_in "手机号码", with: new_phone
         fill_in "密码", with: "6" * 6
         fill_in "密码确认", with: "6" * 6
-        click_button "更新"
+        click_button "提交"
       end
 
       it { should have_selector('title', text: full_title(new_name)) }

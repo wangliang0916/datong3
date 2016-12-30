@@ -1,0 +1,23 @@
+<% provide(:title, "附件列表") %>
+<%= render 'shared/customer_menu' %>
+<h1>附件列表</h1>
+<%= render 'shared/customer' %>
+<table class="table table-striped">
+  <caption>
+    共有 <%= @attachments.count %>个附件:
+    <%= link_to "上传附件", new_customer_attachment_path(@customer) %>
+  </caption>
+  <thead>
+  <% if @attachments.any?  %>
+    <tr>
+      <th>附件信息</th>
+      <th>附件</th>
+      <th>创建时间</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @attachments %>
+  </tbody>
+  <% end %>
+</table>

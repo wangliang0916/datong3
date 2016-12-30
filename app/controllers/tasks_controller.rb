@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  before_filter :signed_in_user
 
   def index
     @user = User.find(params[:user_id])

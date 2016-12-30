@@ -78,7 +78,7 @@ describe "Customers page" do
       visit customer_path(customer)
     end
     it { should have_selector('title', text: full_title(customer.name)) }
-    it { should have_selector('h1', text: customer.name) }
+    it { should have_selector('td', text: customer.name) }
     
     it "should list users" do
       customer.users.each do |user|
@@ -88,16 +88,16 @@ describe "Customers page" do
       end
     end
 
-    describe "list notifies" do
-      let!(:notify) { FactoryGirl.create(:once_notify, customer: customer) }
-      before do
-        visit customer_path(customer)
-      end
-      it { should have_selector('td', text: notify.content) }
-      it "should delete notify" do
-        expect {delete customer_notify_path(customer, notify)}.to change(customer.notifies, :count).by(-1)
-      end
-    end
+    #describe "list notifies" do
+   #   let!(:notify) { FactoryGirl.create(:once_notify, customer: customer) }
+   #   before do
+   #     visit customer_path(customer)
+   #   end
+   #   it { should have_selector('td', text: notify.content) }
+   #   it "should delete notify" do
+   #     expect {delete customer_notify_path(customer, notify)}.to change(customer.notifies, :count).by(-1)
+   #   end
+   # end
   end
 
   describe "new customer" do
@@ -110,7 +110,7 @@ describe "Customers page" do
 
     describe "with invlid infomation" do
       it "should not create a customer" do
-        expect { click_button "创建客户" }.not_to change(Customer, :count)
+        expect { click_button "提交" }.not_to change(Customer, :count)
       end
     end
 
@@ -125,15 +125,15 @@ describe "Customers page" do
       end
       
       it "should create a customer" do
-        expect { click_button "创建客户" }.to change(Customer, :count).by(1)
+        expect { click_button "提交" }.to change(Customer, :count).by(1)
       end
 
       it "should assign to current user" do
-        expect { click_button "创建客户" }.to change(user.customers, :count).by(1)
+        expect { click_button "提交" }.to change(user.customers, :count).by(1)
       end
 
       describe "after saving the customer" do
-        before { click_button "创建客户" }
+        before { click_button "提交" }
 
         it { should have_selector('title', text: full_title("测试客户")) }
         it { should have_selector('div.alert.alert-success', text: "创建成功") }  
@@ -153,7 +153,7 @@ describe "Customers page" do
     describe "with invalid information" do
       before do
         fill_in "姓名",  with: "" 
-        click_button "更新" 
+        click_button "提交" 
       end
       it { should have_selector('span.validation-error') }
     end
@@ -164,7 +164,7 @@ describe "Customers page" do
       before do
         fill_in "姓名",  with: new_name
         fill_in "手机号码", with: new_phone
-        click_button "更新"
+        click_button "提交"
       end
 
       it { should have_selector('title', text: full_title(new_name)) }

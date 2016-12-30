@@ -9,4 +9,17 @@ module ApplicationHelper
       "#{base_title}_#{page_title}"  
     end
   end
+
+  def create_time(obj)
+    obj.created_at.strftime("%Y-%m-%d %H:%M")
+  end
+
+  def notify_type_of(notify, type_name)
+    if notify.type == type_name
+      true 
+    else 
+      false 
+    end
+  end
+
 end

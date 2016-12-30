@@ -1,0 +1,10 @@
+<tr>
+  <td><div class="span6 content"><%= attachment.description %></div></td>
+  <td><%= link_to attachment.file_identifier, attachment.file.url %></td>
+  <td><%= create_time(attachment) %></td>
+  <td>
+  <%= link_to "编辑", edit_customer_attachment_path(@customer, attachment) %>
+  <%= link_to "删除", customer_attachment_path(@customer, attachment), method: 'delete' %>
+  </td>
+</tr>
+

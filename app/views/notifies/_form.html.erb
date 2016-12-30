@@ -1,18 +1,18 @@
-<%= form_for notify, as: :notify, url: url do |f| %>
+<%= form_for @notify, as: :notify, url: url do |f| %>
 <table>
   <tr>
-    <td><%= f.label :content, "通知内容" %></td>
-    <td><%= f.text_area :content, cols: 80, rows: 3 %></td>
+    <td class="span2"><%= f.label :content, "通知内容" %></td>
+    <td><%= f.text_area :content, cols:250, rows: 3, placeholder:"请输入250个字符以内的附件信息" %></td>
   </tr>
   <tr>
     <td>通知类型</td>
     <td>
       <label class="radio-inline"  for="notify_type_once">单次
-      <%= f.radio_button :type, "Once", checked: if notify.type == "OnceNotify" or notify.type == nil then true else false end %></label>
+      <%= f.radio_button :type, "Once", checked: true if @notify.new_record? or notify_type_of(@notify, "OnceNotify") %> 通知日期格式 yyyy-mm-dd</label>
       <label class="radio-inline" for="notify_type_everyyear">每年
-      <%= f.radio_button :type, "EveryYear" , checked: if notify.type == "EveryYearNotify" then true else false end %></label>
+      <%= f.radio_button :type, "EveryYear" , checked: notify_type_of(@notify, "EveryYearNotify") %> 通知日期格式 mm-dd</label>
       <label class="radio-inline"   for="notify_type_everymonth">每月
-      <%= f.radio_button :type, "EveryMonth", checked: if notify.type == "EveryMonthNotify" then true else false end %></label>
+      <%= f.radio_button :type, "EveryMonth", checked: notify_type_of(@notify, "EveryMonthNotify") %> 通知日期格式 dd</label>
     </td>
   </tr>
   <tr>
@@ -21,11 +21,11 @@
   </tr>
   <tr>
     <td><%= f.label :time, "时间" %></td>
-    <td><%= f.text_field :time %></td>
+    <td><%= f.text_field :time , placeholder:"请输入hh:mm" %></td>%></td>
   </tr>
   <tr>
     <td></td>
-    <td><%= f.submit btnName, class:"btn btn-primary btn-large" %></td>
+    <td><%= f.submit "提交", class:"btn btn-primary btn-large" %></td>
   </tr>
 </table>
 <% end %>

@@ -1,6 +1,5 @@
 # encoding: utf-8
 class CustomersController < ApplicationController
-  before_filter :signed_in_user
 
   def index
     @customers = current_user.customers.paginate(page: params[:page])
@@ -61,6 +60,6 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     @customer.destroy
 
-    redirect_to customers_url 
+    redirect_to customers_path 
   end
 end

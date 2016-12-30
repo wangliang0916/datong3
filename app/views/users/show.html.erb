@@ -2,7 +2,7 @@
 <h1>用户资料</h1>
 <table>
   <tr>
-    <td><b>姓名：</b></td>
+    <td class="span2"><b>姓名：</b></td>
     <td><%= @user.name %></td>
   </tr>
   <tr>
@@ -18,5 +18,9 @@
         员工
       <% end %>
     </td>
+  </tr>
+  <tr>
+    <td><b>客户:</b></td>
+    <td>共有<%= link_to "#{@user.customers.count}个客户", customers_path %></td>
   </tr>
 </table>

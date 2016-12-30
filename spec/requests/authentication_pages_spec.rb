@@ -8,56 +8,6 @@ shared_examples "redirect to sign in" do |command|
   specify { response.should redirect_to(signin_path) }
 end
 
-shared_examples "none-sign-in user visit controller" do |name, actions|
-  let(name) { FactoryGirl.create(name) }
-
-  describe "none-sign-in user visit controller #{name}" do
-  
-    if actions.include?("index")
-      describe "index" do  
-        include_examples "redirect to sign in", "get #{name}s_path"
-      end
-    end
-
-    if actions.include?("new")
-      describe "new" do
-        include_examples "redirect to sign in", "get new_#{name}_path"
-      end
-    end
-
-    if actions.include?("create")
-      describe "create" do
-        include_examples "redirect to sign in", "post #{name}s_path"
-      end
-    end
-
-    if actions.include?("show")
-      describe "show" do
-        include_examples "redirect to sign in", "get #{name}_path(#{name})"
-      end
-    end
-
-    if actions.include?("edit")
-      describe "edit" do
-        include_examples "redirect to sign in", "get edit_#{name}_path(#{name})"
-      end
-    end
-
-    if actions.include?("update")
-      describe "update" do 
-        include_examples "redirect to sign in", "put #{name}_path(#{name})"
-      end
-    end
-
-    if actions.include?("delete")
-      describe "delete" do
-        include_examples "redirect to sign in", "delete #{name}_path(#{name})"
-      end
-    end
-
-  end
-end
-
 describe "Authentication" do
   before(:all) { clear_db }
   subject  { page }
@@ -94,9 +44,46 @@ describe "Authentication" do
     end
   end
 
-  include_examples "none-sign-in user visit controller", "user", ["index", "show", "edit", "update", "delete"]
+  describe "none-sign-in user can't visit user" do
+    include_examples "redirect to sign in", "get '/users'"
+    include_examples "redirect to sign in", "get '/users/1'"
+    include_examples "redirect to sign in", "put '/users/1'"
+    include_examples "redirect to sign in", "delete '/users/1'"
+    include_examples "redirect to sign in", "get '/users/1/edit'"
+  end
 
-  include_examples "none-sign-in user visit controller", "customer", ["index","new", "create", "show", "edit", "update", "delete"]
+  describe "none-sign-in user can't visit customer" do
+    include_examples "redirect to sign in", "get '/customers'"
+    include_examples "redirect to sign in", "post '/customers'"
+    include_examples "redirect to sign in", "get '/customers/new'"
+    include_examples "redirect to sign in", "get '/customers/search'"
+    include_examples "redirect to sign in", "get '/customers/1'"
+    include_examples "redirect to sign in", "put '/customers/1'"
+    include_examples "redirect to sign in", "delete '/customers/1'"
+    include_examples "redirect to sign in", "get '/customers/1/edit'"
+  end
 
-  include_examples "redirect to sign in", "get user_tasks_path(1)"
+
+
+  describe "none-sign-in user can't visit task" do
+    include_examples "redirect to sign in", "get '/users/1/tasks'"
+  end
+
+  describe "none-sign-in user can't visit notify" do
+    include_examples "redirect to sign in", "get '/customers/1/notifies'"
+    include_examples "redirect to sign in", "get '/customers/1/notifies/new'"
+    include_examples "redirect to sign in", "post '/customers/1/notifies'"
+    include_examples "redirect to sign in", "put '/customers/1/notifies/1'"
+    include_examples "redirect to sign in", "delete '/customers/1/notifies/1'"
+    include_examples "redirect to sign in", "get '/customers/1/notifies/1/edit'"
+  end
+
+  describe "none-sign-in user can't visit attachment" do
+    include_examples "redirect to sign in", "get '/customers/1/attachments'"
+    include_examples "redirect to sign in", "get '/customers/1/attachments/new'"
+    include_examples "redirect to sign in", "post '/customers/1/attachments'"
+    include_examples "redirect to sign in", "put '/customers/1/attachments/1'"
+    include_examples "redirect to sign in", "delete '/customers/1/attachments/1'"
+    include_examples "redirect to sign in", "get '/customers/1/attachments/1/edit'"
+  end
 end

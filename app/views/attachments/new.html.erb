@@ -1,10 +1,15 @@
 <% provide(:title, "上传附件") %>
+<%= render 'shared/customer_menu' %>
 <h1>上传附件</h1>
-<%= form_for @attachment, url:customer_attachments_path, method: 'post' do |f| %>
-  <%= f.hidden_field :customer_id, value: @attachment.customer.id %>
-  <%= f.label :description, "附件信息" %>
-  <%= f.text_area :description, cols: 80, rows: 3 %>
-  <%= f.file_field :file %>
-  <%= f.hidden_field :file_cache %>
-  <%= f.submit "提交" %>
+<%= render 'shared/customer' %>
+<%= form_for @attachment, url:customer_attachments_path do |f| %>
+  <div class="form-group">
+    <%= f.label :description, "附件信息" %>
+    <%= f.text_area :description, rows: 3, placeholder:"请输入250个字符以内的附件信息" %>
+  </div>
+  <div class="form-group">
+    <%= f.file_field :file %>
+    <%= f.hidden_field :file_cache %>
+  </div>
+  <%= f.submit "提交", class: "btn btn-primary btn-large" %>
 <% end %>

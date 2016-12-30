@@ -1,3 +1,4 @@
 <% provide(:title, "新建通知") %>
+<%= render 'shared/customer_menu' %>
 <h1>新建通知</h1>
-<%= render partial: 'form', locals: { notify: @notify, url: customer_notifies_path, btnName: "提交" } %>
+<%= render partial: 'form', locals: { url: customer_notifies_path } %>

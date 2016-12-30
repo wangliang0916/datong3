@@ -1,6 +1,6 @@
 # encoding: utf-8
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :show, :edit, :update, :destroy]
+  skip_before_filter :signed_in_user, only: [:new, :create]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :correct_user_or_admin, only: :show
   before_filter :admin_user, only: [:index, :destroy, :reset_password]

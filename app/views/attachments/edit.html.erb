@@ -1,7 +1,11 @@
 <% provide(:title, "编辑附件信息") %>
+<%= render 'shared/customer_menu' %>
 <h1>编辑附件信息</h1>
-<%= form_for @attachment do |f| %>
+<%= render 'shared/customer' %>
+<%= form_for @attachment, url: customer_attachment_path(@customer, @attachment) do |f| %>
+  <div class="form-group">
   <%= f.label :description, "附件信息" %>
-  <%= f.text_area :description, value: @attachment.description, cols: 80, rows: 3 %>
-  <%= f.submit "提交" %>
+  <%= f.text_area :description, value: @attachment.description, rows: 3 %>
+  </div>
+  <%= f.submit "提交", class: "btn btn-primary btn-large" %>
 <% end %>

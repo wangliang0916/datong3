@@ -80,8 +80,8 @@ p {
 	text-decoration: none;
 }
 
-/* task table */
-.task_content {
+/* table */
+td .content {
   word-wrap: break-word;
 }
 
@@ -150,6 +150,18 @@ aside {
 }
 
 /* forms */
+textarea {
+  width: 60%;
+}
+
+.btn{
+  margin-bottom: 9px;
+}
+
+#search_name {
+  width: 250px;
+}
+  
 /*input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 60%;

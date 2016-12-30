@@ -1,20 +1,19 @@
 <% provide(:title, "客户列表") %>
 
 <h1>客户列表</h1>
-
-<%= form_for(:search, url: search_customers_path, method: 'get' )  do |f|  %>
-  <table>
-    <tr>
-      <td><%= f.text_field :name, placeholder:"查询", class:"input-medium search-query" %></td>
-      <td><%= f.submit "查询", class: "btn btn-large btn-primary" %></td>
-    </tr>
-  </table>
+<%= form_for(:search, url: search_customers_path, method: 'get' , class: "form-inline")  do |f|  %>
+      <%= f.search_field :name, placeholder:"请输入客户姓名（汉字或拼音首字母）" %>
+      <%= f.submit "查询", class: "btn btn-primary" %>
 <% end %>
 
 <%= will_paginate %>
 
 <table class="table table-striped">
-  <caption>客户列表</caption>
+  <caption>
+    <%= "共有#{@customers.count}个客户: " %>
+    <%= link_to "新建客户", new_customer_path %>
+  </caption>
+
   <thead>
     <tr>
       <th>姓名</th>
