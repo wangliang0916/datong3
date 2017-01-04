@@ -1,18 +1,27 @@
 Datong3::Application.routes.draw do
 
   resources :customers do
-    collection { get 'search' }
-    resources :attachments
-    resources :notifies
+    collection do
+      get 'search' 
+      get 'search_all'
+      get 'list_all'
+    end
+    resources :attachments, except: :show
+    resources :notifies, except: :show
   end
   
-  resources :assigns, only: [:create, :edit]
+  #resources :assigns, only: [:create, :edit]
+  match '/assign', to: 'assigns#create', via: :post
   match '/assign', to: 'assigns#destroy', via: :delete
+  match '/assign/edit', to: 'assigns#edit'
 
   root to: 'static_pages#home'
 
   resources :users do
-    collection { get 'search' }
+    collection do
+      get 'search' 
+      get 'get_by_name'
+    end
     resources :tasks, only: :index
     member { put 'reset_password' }
   end

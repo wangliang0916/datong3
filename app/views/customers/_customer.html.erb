@@ -3,6 +3,6 @@
   <td><%= link_to customer.mobile_phone, customer %></td>
   <td>
     <%= link_to "编辑", edit_customer_path(customer) %>
-    <%= link_to "取消指派", assign_path(customer_id: customer.id, user_id: current_user.id), method: :delete, data: { confirm: "确认取消指派？" } %>
+    <%= link_to "取消指派", assign_path(customer_id: customer.id, user_id: current_user.id), method: :delete, data: { confirm: "确认取消指派？" }, remote: true %>
   </td>
 </tr>

@@ -1,8 +1,8 @@
 <% provide(:title, "客户列表") %>
 
 <h1>客户列表</h1>
-<%= form_for(:search, url: search_customers_path, method: 'get' , class: "form-inline")  do |f|  %>
-      <%= f.search_field :name, placeholder:"请输入客户姓名（汉字或拼音首字母）" %>
+<%= form_for(:search, url: search_path_by(@all), method: 'get' , class: "form-inline")  do |f|  %>
+      <%= f.search_field :name, placeholder:"请输入客户姓名（汉字或拼音首字母）", value: @name %>
       <%= f.submit "查询", class: "btn btn-primary" %>
 <% end %>
 

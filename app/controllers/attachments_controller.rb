@@ -1,6 +1,7 @@
 # encoding: utf-8
-class AttachmentsController < ApplicationController
-  before_filter :current_customer
+class AttachmentsController < CustomerBaseController 
+  before_filter :correct_customer_user, only: [:new, :edit, :update, :create, :destroy]
+  before_filter :correct_customer_user_or_admin, only: [:index]
 
   def index
     @attachments = @customer.attachments
@@ -48,7 +49,7 @@ class AttachmentsController < ApplicationController
   end
 
 private
-  def current_customer
-    @customer = Customer.find(params[:customer_id])
+  def get_customer
+    Customer.find(params[:customer_id])
   end
 end

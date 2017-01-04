@@ -1,22 +1,25 @@
 <% provide(:title, "指派") %>
 <h1>指派客户专员</h1>
 <p>
-  <h2>客户姓名：<%= @customer.name %></h2>
+  客户：<%= link_to "#{@customer.name} #{@customer.mobile_phone}", customer_path(@customer) %>
 </p>
 <p>
-  <h2>客户电话：<%= @customer.mobile_phone %></h2>
+  <%= label_tag(:user_name, "指派客户专员：") %>
+  <%= text_field_tag(:user_name, nil, placeholder:"输入姓名或拼音首字后选择客户专员") %>
 </p>
-<div class="row">
-  <div class="span6 offset3">
-<p>
-  <%= label_tag(:user_name, "客户专员：") %>
-  <%= text_field_tag(:user_name) %>
-</p>
-<%= form_tag(edit_assign_path(@customer), method: "get") do %>
+<%= form_tag(assign_path, method: "post") do %>
   <%= hidden_field_tag :user_id %>
   <%= hidden_field_tag :customer_id, @customer.id %>
   <%= submit_tag "指派", class: "btn btn-large btn-primary" %>
 <% end %>
-</div>
-</div>
 
+
+<table class="table table-striped">
+<caption>客户专员</caption>
+<% @customer.users.each do |user| %>
+  <tr>
+  <td class="span3"><%= link_to "#{user.name} #{user.mobile_phone}", user_path(user) %></td>
+  <td><%= link_to "取消指派", assign_path(customer_id: @customer.id, user_id: user.id), method: :delete, data: { confirm: "确认取消指派？" }, remote: true %></td>
+  </tr>
+<% end %>
+</table>

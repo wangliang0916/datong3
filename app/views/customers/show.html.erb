@@ -22,8 +22,8 @@
     <td valign="top"><b>客户专员:</b></td>
     <td valign="top">
     <% @customer.users.each do |user| %>
-        <%= link_to "#{user.name} : #{user.mobile_phone}", user_path(user)  %>
-        <%= link_to "删除", assign_path(customer_id: @customer.id, user_id: user.id), method: 'delete' %><br />
+        <%= "#{user.name} #{user.mobile_phone}" %>
+        <br />
     <% end %>
     </td>
   </tr>

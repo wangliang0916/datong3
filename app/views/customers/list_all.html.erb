@@ -1,0 +1,41 @@
+<% provide(:title, "所有客户") %>
+
+<h1>客户列表</h1>
+<%= form_for(:search, url: search_all_customers_path, method: 'get' , class: "form-inline")  do |f|  %>
+      <%= f.search_field :name, placeholder:"请输入客户姓名（汉字或拼音首字母）", value: @name %>
+      <%= f.submit "查询", class: "btn btn-primary" %>
+<% end %>
+
+<%= will_paginate %>
+
+<table class="table table-striped">
+  <caption>
+    <%= "共有#{@customers.count}个客户" %>
+  </caption>
+
+  <thead>
+    <tr>
+      <th>客户</th>
+      <th>客户专员</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customers.each do |customer| %>
+    <tr>
+      <td><%= link_to "#{customer.name} #{customer.mobile_phone}", customer_path(customer) %></td>
+      <td>
+      <% customer.users.each do |user| %>
+        <p><%= link_to "#{user.name} #{user.mobile_phone}", user_path(user) %></p>
+      <% end %>
+      </td>
+      <td>
+        <%= link_to "指派", assign_edit_path(customer_id: customer.id) %>
+        <%= link_to "删除", customer_path(customer), method: 'delete' %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate %>

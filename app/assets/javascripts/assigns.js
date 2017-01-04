@@ -1,6 +1,6 @@
 $( function() {
   $("#user_name").autocomplete({
-    source: "/users/search",
+    source: "/users/get_by_name",
     delay: 500,
     select: function(event, ui){
       $(this).val(ui.item.label);

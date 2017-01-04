@@ -46,17 +46,21 @@ describe "Authentication" do
 
   describe "none-sign-in user can't visit user" do
     include_examples "redirect to sign in", "get '/users'"
+    include_examples "redirect to sign in", "get '/users/search'"
     include_examples "redirect to sign in", "get '/users/1'"
     include_examples "redirect to sign in", "put '/users/1'"
     include_examples "redirect to sign in", "delete '/users/1'"
     include_examples "redirect to sign in", "get '/users/1/edit'"
+    include_examples "redirect to sign in", "get '/users/get_by_name'"
   end
 
   describe "none-sign-in user can't visit customer" do
     include_examples "redirect to sign in", "get '/customers'"
+    include_examples "redirect to sign in", "get '/customers/list_all'"
     include_examples "redirect to sign in", "post '/customers'"
     include_examples "redirect to sign in", "get '/customers/new'"
     include_examples "redirect to sign in", "get '/customers/search'"
+    include_examples "redirect to sign in", "get '/customers/search_all'"
     include_examples "redirect to sign in", "get '/customers/1'"
     include_examples "redirect to sign in", "put '/customers/1'"
     include_examples "redirect to sign in", "delete '/customers/1'"
@@ -85,5 +89,16 @@ describe "Authentication" do
     include_examples "redirect to sign in", "put '/customers/1/attachments/1'"
     include_examples "redirect to sign in", "delete '/customers/1/attachments/1'"
     include_examples "redirect to sign in", "get '/customers/1/attachments/1/edit'"
+  end
+
+  describe "none-sign-in user can't visit assign" do
+    include_examples "redirect to sign in", "get '/assign/edit'"
+    include_examples "redirect to sign in", "post '/assign'"
+    include_examples "redirect to sign in", "delete '/assign'"
+  end
+
+  describe "none-sign-in user can't visit static pages" do
+    include_examples "redirect to sign in", "get '/'"
+    include_examples "redirect to sign in", "get '/error'"
   end
 end

@@ -22,7 +22,7 @@ describe "Customers page" do
         it { should have_selector('div.pagination') }
 
         it "should list each customer" do
-          Customer.paginate(page:1).each do |customer|
+          user.customers.order("name asc").paginate(page:1).each do |customer|
             expect(page).to have_link(customer.name, href: customer_path(customer))
             expect(page).to have_link(customer.mobile_phone, href: customer_path(customer))
             expect(page).to have_link("编辑", href: edit_customer_path(customer))
@@ -82,22 +82,10 @@ describe "Customers page" do
     
     it "should list users" do
       customer.users.each do |user|
-        expect(page).to have_link(user.name, href: user_path(user)) 
-        expect(page).to have_link(user.mobile_phone, href: user_path(user)) 
-        expect(page).to have_link("删除", href: assign_path(customer_id: customer.id, user_id: user.id), method: 'delete') 
+        expect(page).to have_content(user.name) 
       end
     end
 
-    #describe "list notifies" do
-   #   let!(:notify) { FactoryGirl.create(:once_notify, customer: customer) }
-   #   before do
-   #     visit customer_path(customer)
-   #   end
-   #   it { should have_selector('td', text: notify.content) }
-   #   it "should delete notify" do
-   #     expect {delete customer_notify_path(customer, notify)}.to change(customer.notifies, :count).by(-1)
-   #   end
-   # end
   end
 
   describe "new customer" do
@@ -144,7 +132,10 @@ describe "Customers page" do
   describe "edit customer" do
     let(:customer) { FactoryGirl.create(:customer) }
 
-    before { visit edit_customer_path(customer) }
+    before do
+      user.customers << customer
+      visit edit_customer_path(customer) 
+    end
 
     describe "page" do
       it { should have_selector('title', text: full_title("编辑客户")) }

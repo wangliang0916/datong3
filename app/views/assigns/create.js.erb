@@ -1,0 +1,1 @@
+$("table").append('<tr><td class="span3"><%= link_to "#{@user.name} #{@user.mobile_phone}", user_path(@user) %></td> <td><%= link_to "取消指派", assign_path(customer_id: @customer.id, user_id: @user.id), method: :delete, data: { confirm: "确认取消指派？" }, remote: true %></td></tr>')

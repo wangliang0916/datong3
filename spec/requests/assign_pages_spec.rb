@@ -11,18 +11,14 @@ describe "Assigns page" do
   describe "edit assign" do
     let(:admin) { FactoryGirl.create(:admin) }
     let(:customer) { FactoryGirl.create(:customer) }
-    let(:other_user) { FactoryGirl.create(:user) }
     
     before do
       admin.customers << customer
       sign_in admin
-      visit edit_assign_path(customer) 
+      visit assign_edit_path(customer_id: customer.id) 
     end
 
-    describe "page" do
-#      it { should have_selector('title', text: full_title("编辑指派")) }
-#      it { should have_selector('h1', text: "编辑指派") }
-    end
+    it { should have_selector('title', text: full_title("指派")) }
 
 #    describe "with invalid information" do
 #      before do
@@ -33,18 +29,15 @@ describe "Assigns page" do
 #    end
     
 #    describe "with valid information" do
-#      let(:new_name) { "New Name" }
-#      let(:new_phone) { "2" * 11 }
+#      let(:other_user) { FactoryGirl.create(:user) }
 #      before do
-#        fill_in "姓名",  with: new_name
-#        fill_in "手机号码", with: new_phone
-#        click_button "更新"
+#        fill_in "user_id",  with: other_user.id
+#        fill_in "customer_id", with: customer.id
 #      end
-
-#      it { should have_selector('title', text: full_title(new_name)) }
-#      it { should have_selector('div.alert.alert-success', text: "更新成功") }  
-#      specify { assign.reload.name == new_name }
-#      specify { assign.reload.mobile_phone.should == new_phone }
+      
+#      it "should add a user to customer" do
+#        expect { click_button "指派" }.to change(customer.users, :count).by(1)
+#      end
 #    end
   end
 

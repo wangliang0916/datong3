@@ -3,14 +3,23 @@ class UsersController < ApplicationController
   skip_before_filter :signed_in_user, only: [:new, :create]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :correct_user_or_admin, only: :show
-  before_filter :admin_user, only: [:index, :destroy, :reset_password]
+  before_filter :admin_user, only: [:index, :search, :destroy, :reset_password, :get_by_name]
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.order("name asc").paginate(page: params[:page])
+  end
+
+  def search
+    @name = params[:search][:name]
+    if @name == PinYin.abbr(@name)
+      @users = User.where("pinyin like ?", "%#{@name}%").order("pinyin asc").paginate(page: params[:page])
+    else
+      @users = User.where("name like ?", "%#{@name}%").order("name asc").paginate(page: params[:page])
+    end
+    render 'index'
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def new
@@ -19,20 +28,19 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-     if @user.save
-        sign_in @user
-        flash[:success] = "欢迎使用大童CRM!"
-        redirect_to @user
-     else
-       render 'new'
-     end
+    if @user.save
+      sign_in @user
+      flash[:success] = "欢迎使用大童CRM!"
+      redirect_to @user
+    else
+      render 'new'
+    end
   end
   
   def edit
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:success] = "更新成功!"
       sign_in @user
@@ -61,7 +69,7 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def search
+  def get_by_name
     if params[:term] == PinYin.abbr(params[:term])
       users = User.where("pinyin like '%#{params[:term]}%'")
     else
@@ -74,4 +82,17 @@ class UsersController < ApplicationController
     render json: data
   end
 
+  def correct_user_or_admin
+    @user = User.find(params[:id])
+    unless current_user?(@user) or current_user.admin?
+      redirect_with_no_rights
+    end
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    unless current_user?(@user) 
+      redirect_with_no_rights
+    end
+  end
 end

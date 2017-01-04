@@ -8,11 +8,11 @@
     <td>通知类型</td>
     <td>
       <label class="radio-inline"  for="notify_type_once">单次
-      <%= f.radio_button :type, "Once", checked: true if @notify.new_record? or notify_type_of(@notify, "OnceNotify") %> 通知日期格式 yyyy-mm-dd</label>
+      <%= f.radio_button :type, "Once", checked: true if @notify.new_record? or notify_type_of(@notify, "OnceNotify") %> <em>格式 yyyy-mm-dd</em></label>
       <label class="radio-inline" for="notify_type_everyyear">每年
-      <%= f.radio_button :type, "EveryYear" , checked: notify_type_of(@notify, "EveryYearNotify") %> 通知日期格式 mm-dd</label>
+      <%= f.radio_button :type, "EveryYear" , checked: notify_type_of(@notify, "EveryYearNotify") %> <em>格式 mm-dd</em></label>
       <label class="radio-inline"   for="notify_type_everymonth">每月
-      <%= f.radio_button :type, "EveryMonth", checked: notify_type_of(@notify, "EveryMonthNotify") %> 通知日期格式 dd</label>
+      <%= f.radio_button :type, "EveryMonth", checked: notify_type_of(@notify, "EveryMonthNotify") %> <em>格式 dd<em></label>
     </td>
   </tr>
   <tr>
@@ -21,7 +21,7 @@
   </tr>
   <tr>
     <td><%= f.label :time, "时间" %></td>
-    <td><%= f.text_field :time , placeholder:"请输入hh:mm" %></td>%></td>
+    <td><%= f.text_field :time , placeholder:"请输入hh:mm" %></td>
   </tr>
   <tr>
     <td></td>
