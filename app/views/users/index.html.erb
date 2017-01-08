@@ -5,7 +5,7 @@
       <%= f.submit "查询", class: "btn btn-primary" %>
 <% end %>
 
-<%= will_paginate %>
+<%= will_paginate previous_label: "前一页", next_label: "后一页" %>
 
 <table class="table table-striped">
   <caption>共有<%= @users.count %>个用户</caption>
@@ -21,4 +21,4 @@
   </tbody>
 </table>
 
-<%= will_paginate %>
+<%= will_paginate previous_label: "前一页", next_label: "后一页" %>

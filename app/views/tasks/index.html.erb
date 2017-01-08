@@ -2,7 +2,7 @@
 
 <h1>任务列表</h1>
 
-<%= will_paginate %>
+<%= will_paginate previous_label: "前一页", next_label: "后一页" %>
  <table class="table table-striped">
     <caption>共有 <%= @tasks.count %> 个任务</caption>
     <% if @tasks.any? %>
@@ -19,4 +19,4 @@
     <% end %>
     
   </table>
-<%= will_paginate %>
+<%= will_paginate previous_label: "前一页", next_label: "后一页" %>
