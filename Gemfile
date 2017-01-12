@@ -11,6 +11,7 @@ gem 'thin', '1.7.0'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem 'ruby-pinyin', '0.5.0'
+gem 'rufus-scheduler'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

@@ -6,6 +6,7 @@ class Task < ActiveRecord::Base
 
   def self.generate_tasks
     now = Time.now
+    #puts "hello, it's #{now}"
     year = now.year.to_s
     month = sprintf("%02d", now.month)
     day = sprintf("%02d", now.day)
