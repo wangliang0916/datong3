@@ -8,7 +8,7 @@ namespace :db do
       password_confirmation: "6" * 6)
     admin.toggle!(:admin)
 
-    99.times do |n|
+    9.times do |n|
       name = "u#{n}"
       mobile_phone = (21111111111 + n).to_s
       password = "6" * 6
@@ -18,18 +18,18 @@ namespace :db do
         password_confirmation: password)
     end
 
-    99.times do |n|
+    9.times do |n|
       name = "c#{n}"
-      mobile_phone = (21111111111 + n).to_s
+      mobile_phone = (31111111111 + n).to_s
       password = "6" * 6
       Customer.create!(name:name, 
         mobile_phone: mobile_phone)
     end
 
-    59.times do |n|
+    9.times do |n|
       t = Task.new
       t.customer_name = "c#{n}"
-      t.customer_mobile_phone = "21111111#{111+n}"
+      t.customer_mobile_phone = "31111111#{111+n}"
       t.content = "content #{n}"
       t.notify_date = "2016-12-22"
       t.notify_time = "08:#{n}"
@@ -37,8 +37,8 @@ namespace :db do
       t.save
     end
     
-    admin.customers = Customer.where("id < 32")
+    admin.customers = Customer.where("id < 5")
     u0 = User.find_by_name("u0")
-    u0.customers = Customer.where("id >=32")
+    u0.customers = Customer.where("id >=5")
   end
 end
